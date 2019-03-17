@@ -1,0 +1,46 @@
+{
+	"name": "typo3/cms-configuration",
+	"type": "typo3-cms-framework",
+	"description": "Configuration Layer",
+	"homepage": "https://typo3.org",
+	"license": ["GPL-2.0-or-later"],
+	"authors": [{
+		"name": "TYPO3 Core Team",
+		"email": "typo3cms@typo3.org",
+		"role": "Developer"
+	}],
+	"config": {
+		"sort-packages": true
+	},
+	"require": {
+		"typo3/cms-backend": "10.0.*@dev",
+		"typo3/cms-core": "10.0.*@dev"
+	},
+	"conflict": {
+		"typo3/cms": "*"
+	},
+	"replace": {
+		"configuration": "*"
+	},
+	"extra": {
+		"branch-alias": {
+			"dev-master": "10.0.x-dev"
+		},
+		"typo3/cms": {
+			"extension-key": "configuration",
+			"Package": {
+				"partOfFactoryDefault": true
+			}
+		}
+	},
+	"autoload": {
+		"psr-4": {
+			"TYPO3\\CMS\\Core\\Configuration\\MetaModel\\": "Classes/MetaModel/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"TYPO3\\CMS\\Core\\Tests\\Unit\\Configuration\\MetaModel\\": "Tests/Unit/MetaModel/"
+		}
+	}
+}
