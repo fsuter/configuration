@@ -13,7 +13,6 @@
 		"sort-packages": true
 	},
 	"require": {
-		"typo3/cms-backend": "10.0.*@dev",
 		"typo3/cms-core": "10.0.*@dev"
 	},
 	"conflict": {
@@ -40,7 +39,7 @@
 	},
 	"autoload-dev": {
 		"psr-4": {
-			"TYPO3\\CMS\\Core\\Tests\\Unit\\Configuration\\MetaModel\\": "Tests/Unit/MetaModel/"
+			"TYPO3\\CMS\\Core\\Tests\\Functional\\Configuration\\MetaModel\\": "Tests/Functional/MetaModel/"
 		}
 	}
 }

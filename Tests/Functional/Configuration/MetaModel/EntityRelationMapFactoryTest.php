@@ -16,13 +16,18 @@ namespace TYPO3\CMS\Core\Tests\Unit\Configuration\MetaModel;
  */
 
 use TYPO3\CMS\Core\Configuration\MetaModel\EntityRelationMapFactory;
-use TYPO3\TestingFramework\Core\Unit\UnitTestCase;
+use TYPO3\TestingFramework\Core\Functional\FunctionalTestCase;
 
 /**
  * Test case
  */
-class EntityRelationMapFactoryTest extends UnitTestCase
+class EntityRelationMapFactoryTest extends FunctionalTestCase
 {
+    /**
+     * @var string[]
+     */
+    protected $coreExtensionsToLoad = ['configuration'];
+
     /**
      * @var array
      */
