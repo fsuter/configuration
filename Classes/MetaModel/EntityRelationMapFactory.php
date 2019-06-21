@@ -97,11 +97,7 @@ class EntityRelationMapFactory
 
             foreach ($tableConfiguration['columns'] as $columnName => $columnConfiguration) {
                 $entityDefinition->addPropertyDefinition(
-                    GeneralUtility::makeInstance(
-                        PropertyDefinition::class,
-                        $columnName,
-                        $columnConfiguration
-                    )
+                    $this->buildPropertyDefinition($columnName, $columnConfiguration)
                 );
             }
 
@@ -109,6 +105,43 @@ class EntityRelationMapFactory
         }
 
         return $entityDefinitions;
+    }
+
+    protected function buildPropertyDefinition(string $name, array $configuration): PropertyDefinition
+    {
+        $propertyDefinition = GeneralUtility::makeInstance(
+            PropertyDefinition::class,
+            $name,
+            $configuration
+        );
+
+        $constraints = [];
+
+        if ($configuration['config']['type'] === 'group'
+            || $configuration['config']['type'] === 'inline'
+        ) {
+            $constraints[] = GeneralUtility::makeInstance(
+                MultiplicityConstraint::class,
+                $propertyDefinition,
+                $configuration['config']['minitems'] ?? 0,
+                $configuration['config']['maxitems'] ?? null
+            );
+        } elseif ($configuration['config']['type'] === 'select') {
+            $constraints[] = GeneralUtility::makeInstance(
+                MultiplicityConstraint::class,
+                $propertyDefinition,
+                $configuration['config']['minitems'] ?? 0,
+                $configuration['config']['renderType'] === 'selectSingle'
+                    || $configuration['config']['special'] === 'languages'
+                        ? 1 : $configuration['config']['maxitems'] ?? null
+            );
+        }
+
+        foreach ($constraints as $contraint) {
+            $propertyDefinition->addConstraint($contraint);
+        }
+
+        return $propertyDefinition;
     }
 
     /**

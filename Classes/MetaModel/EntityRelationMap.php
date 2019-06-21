@@ -94,10 +94,22 @@ class EntityRelationMap
             'passive' => array_map('strval', $propertyDefinition->getPassiveRelations()),
         ];
 
+        $contraints = array_map('strval', $propertyDefinition->getConstraints());
+
         if ($filter) {
             $relations = array_filter($relations, 'count');
+            $contraints = array_filter($contraints, 'count');
         }
 
-        return $relations;
+        $result = [
+            'relations' => $relations,
+            'constraints' => $contraints
+        ];
+
+        if ($filter) {
+            return array_filter($result, 'count');
+        }
+
+        return $result;
     }
 }

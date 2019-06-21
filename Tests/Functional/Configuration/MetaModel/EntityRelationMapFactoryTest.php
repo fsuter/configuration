@@ -38,7 +38,7 @@ class EntityRelationMapFactoryTest extends FunctionalTestCase
      */
     protected $expected;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->configuration = [
@@ -160,66 +160,114 @@ class EntityRelationMapFactoryTest extends FunctionalTestCase
             'default' => [
                 'content' => [
                     'language' => [
-                        'active' => [
-                            'content.language -> sys_language',
+                        'relations' => [
+                            'active' => [
+                                'content.language -> sys_language',
+                            ],
+                        ],
+                        'constraints' => [
+                            '[0..1]'
                         ],
                     ],
                     'layout' => [
-                        'active' => [
-                            'content.layout -> layout',
+                        'relations' => [
+                            'active' => [
+                                'content.layout -> layout',
+                            ],
+                        ],
+                        'constraints' => [
+                            '[0..*]'
                         ],
                     ],
                     'imageReference' => [
-                        'active' => [
-                            'content.imageReference -> image',
+                        'relations' => [
+                            'active' => [
+                                'content.imageReference -> image',
+                            ],
+                        ],
+                        'constraints' => [
+                            '[0..*]'
                         ],
                     ],
                     'imageComposition' => [
-                        'active' => [
-                            'content.imageComposition -> image.content',
+                        'relations' => [
+                            'active' => [
+                                'content.imageComposition -> image.content',
+                            ],
+                        ],
+                        'constraints' => [
+                            '[0..*]'
                         ],
                     ],
                     'categories' => [
-                        'active' => [
-                            'content.categories -> category',
+                        'relations' => [
+                            'active' => [
+                                'content.categories -> category',
+                            ],
+                        ],
+                        'constraints' => [
+                            '[0..*]'
                         ],
                     ],
                     'entities' => [
-                        'active' => [
-                            'content.entities -> sys_language',
-                            'content.entities -> content',
-                            'content.entities -> image',
-                            'content.entities -> layout',
-                            'content.entities -> category',
+                        'relations' => [
+                            'active' => [
+                                'content.entities -> sys_language',
+                                'content.entities -> content',
+                                'content.entities -> image',
+                                'content.entities -> layout',
+                                'content.entities -> category',
+                            ],
+                        ],
+                        'constraints' => [
+                            '[0..*]'
                         ],
                     ],
                     'related' => [
-                        'active' => [
-                            'content.related -> content',
-                            'content.related -> image',
+                        'relations' => [
+                            'active' => [
+                                'content.related -> content',
+                                'content.related -> image',
+                            ],
+                        ],
+                        'constraints' => [
+                            '[0..*]'
                         ],
                     ],
                 ],
+
                 'image' => [
                     'language' => [
-                        'active' => [
-                            'image.language -> sys_language',
+                        'relations' => [
+                            'active' => [
+                                'image.language -> sys_language',
+                            ],
+                        ],
+                        'constraints' => [
+                            '[0..1]'
                         ],
                     ],
                     'content' => [
-                        'passive' => [
-                            'image.content <- content.imageComposition',
+                        'relations' => [
+                            'passive' => [
+                                'image.content <- content.imageComposition',
+                            ],
                         ],
                     ],
                 ],
                 'category' => [
                     'items' => [
-                        'active' => [
-                            'category.items -> sys_language',
-                            'category.items -> content',
-                            'category.items -> image',
-                            'category.items -> layout',
-                            'category.items -> category',
+                        'relations' => [
+                            'active' => [
+                                'category.items -> sys_language',
+                                'category.items -> content',
+                                'category.items -> image',
+                                'category.items -> layout',
+                                'category.items -> category',
+                            ],
+                        ],
+                        'constraints' => [
+                            '[0..*]'
                         ],
                     ]
                 ]
@@ -227,48 +275,58 @@ class EntityRelationMapFactoryTest extends FunctionalTestCase
             'identity' => [
                 'sys_language' => [
                     '__identity' => [
-                        'passive' => [
-                            'sys_language.__identity <- content.language',
-                            'sys_language.__identity <- content.entities',
-                            'sys_language.__identity <- image.language',
-                            'sys_language.__identity <- category.items',
+                        'relations' => [
+                            'passive' => [
+                                'sys_language.__identity <- content.language',
+                                'sys_language.__identity <- content.entities',
+                                'sys_language.__identity <- image.language',
+                                'sys_language.__identity <- category.items',
+                            ],
                         ],
                     ],
                 ],
                 'content' => [
                     '__identity' => [
-                        'passive' => [
-                            'content.__identity <- content.entities',
-                            'content.__identity <- content.related',
-                            'content.__identity <- category.items',
+                        'relations' => [
+                            'passive' => [
+                                'content.__identity <- content.entities',
+                                'content.__identity <- content.related',
+                                'content.__identity <- category.items',
+                            ],
                         ],
                     ],
                 ],
                 'image' => [
                     '__identity' => [
-                        'passive' => [
-                            'image.__identity <- content.imageReference',
-                            'image.__identity <- content.entities',
-                            'image.__identity <- content.related',
-                            'image.__identity <- category.items',
+                        'relations' => [
+                            'passive' => [
+                                'image.__identity <- content.imageReference',
+                                'image.__identity <- content.entities',
+                                'image.__identity <- content.related',
+                                'image.__identity <- category.items',
+                            ],
                         ],
                     ],
                 ],
                 'layout' => [
                     '__identity' => [
-                        'passive' => [
-                            'layout.__identity <- content.layout',
-                            'layout.__identity <- content.entities',
-                            'layout.__identity <- category.items',
+                        'relations' => [
+                            'passive' => [
+                                'layout.__identity <- content.layout',
+                                'layout.__identity <- content.entities',
+                                'layout.__identity <- category.items',
+                            ],
                         ],
                     ],
                 ],
                 'category' => [
                     '__identity' => [
-                        'passive' => [
-                            'category.__identity <- content.categories',
-                            'category.__identity <- content.entities',
-                            'category.__identity <- category.items',
+                        'relations' => [
+                            'passive' => [
+                                'category.__identity <- content.categories',
+                                'category.__identity <- content.entities',
+                                'category.__identity <- category.items',
+                            ],
                         ],
                     ],
                 ],
@@ -276,15 +334,22 @@ class EntityRelationMapFactoryTest extends FunctionalTestCase
             'opposite' => [
                 'content' => [
                     'categories' => [
-                        'active' => [
-                            'content.categories -> category.items',
+                        'relations' => [
+                            'active' => [
+                                'content.categories -> category.items',
+                            ],
+                        ],
+                        'constraints' => [
+                            '[0..*]'
                         ],
                     ],
                 ],
                 'category' => [
                     'items' => [
-                        'passive' => [
-                            'category.items <- content.categories'
+                        'relations' => [
+                            'passive' => [
+                                'category.items <- content.categories'
+                            ],
                         ],
                     ],
                 ],
@@ -364,14 +429,13 @@ class EntityRelationMapFactoryTest extends FunctionalTestCase
             $this->expected['opposite']
         );
         array_splice(
-            $expected['category']['__identity']['passive'],
+            $expected['category']['__identity']['relations']['passive'],
             array_search(
                 'category.__identity <- content.categories',
-                $expected['category']['__identity']['passive']
+                $expected['category']['__identity']['relations']['passive']
             ),
             1
         );
         static::assertEquals($expected, $map->export(true));
-        var_export($map->export(true));
     }
 }

@@ -46,6 +46,11 @@ class PropertyDefinition
      */
     protected $passiveRelations = [];
 
+    /**
+     * @var PropertyDefinitionConstraint[]
+     */
+    protected $constraints = [];
+
     public function __construct(string $name, array $configuration)
     {
         $this->name = $name;
@@ -158,6 +163,21 @@ class PropertyDefinition
     public function getPropertyType(): ?string
     {
         return $this->configuration['config']['type'] ?? null;
+    }
+
+    public function getConstraints(): array
+    {
+        return $this->constraints;
+    }
+
+    public function hasConstraints(): bool
+    {
+        return !empty($this->constraints);
+    }
+
+    public function addConstraint(PropertyDefinitionConstraint $contraint): void
+    {
+        $this->constraints[] = $contraint;
     }
 
     public function isRelationProperty(): bool
