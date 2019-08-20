@@ -15,9 +15,6 @@ namespace TYPO3\CMS\Core\Configuration\MetaModel;
  * The TYPO3 project - inspiring people to share!
  */
 
-interface Relational extends ElementInterface
+interface ElementInterface
 {
-    public function __toString(): string;
-
-    public function getPropertyDefinition(): PropertyDefinition;
 }

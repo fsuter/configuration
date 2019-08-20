@@ -15,7 +15,7 @@ namespace TYPO3\CMS\Core\Configuration\MetaModel;
  * The TYPO3 project - inspiring people to share!
  */
 
-class EntityDefinition
+class EntityDefinition implements ElementInterface
 {
     /**
      * @var string

@@ -17,7 +17,7 @@ namespace TYPO3\CMS\Core\Configuration\MetaModel;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-class PropertyDefinition
+class PropertyDefinition implements ElementInterface
 {
     const NAME_IDENTITY = '__identity';
 
